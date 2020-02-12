@@ -1,4 +1,5 @@
 module.exports = {
   // Book: require("./book")
-  // Export into objects
+  Users: require("./users"),
+  Games: require("./games")
 };
