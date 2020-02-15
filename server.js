@@ -2,9 +2,14 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const routes = require("./routes");
+const exphbs = require('express-handlebars');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+
+// Handlebars
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
 
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));

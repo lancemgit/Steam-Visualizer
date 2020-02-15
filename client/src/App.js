@@ -9,21 +9,19 @@ class App extends Component {
 
   componentDidMount() {
     window.addEventListener('message', event => {
-      if (event.origin !== "localhost:3001") return;
+      const { token } = event.data;
+      localStorage.setItem('authToken', token);
 
-      const { token, ok } = event.data;
-
-      if (ok) {
-        localStorage.setItem('authToken', token);
-        console.log(token);
-      }
+      let base64Token = token.split('.')[1].replace('-', '+').replace('_', '/');
+      let payload = JSON.parse(atob(base64Token)).user;
+      localStorage.setItem("user", JSON.stringify(payload));
     });
   }
 
   render() {
     return (
       <div className="App">
-        <h1>Steam JWT Login</h1>
+        <h1>Login Test</h1>
         <img
           onClick={this.onHandleLogin}
           src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png"
