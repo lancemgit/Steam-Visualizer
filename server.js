@@ -22,12 +22,12 @@ if (process.env.NODE_ENV === "production") {
 
 // Passport initialization
 require("./config/steam")(app);
-
 // Add routes, both API and view
 app.use(routes);
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/steam-visualizer");
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/steam-visualizer");
+mongoose.set('useFindAndModify', false);
 
 // Start the API server
 app.listen(PORT, function () {

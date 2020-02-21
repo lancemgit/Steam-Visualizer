@@ -12,15 +12,13 @@ module.exports = app => {
     passport.use(new SteamStrategy(strategyOptions,
         async (identifier, profile, done) => {
             console.log("=================================\nHitting Steam Strategy");
-
             profile.identifier = identifier;
-
+            // Setting what the payload for the jwt is going to be
             const user = {
                 id: profile._json.steamid,
                 name: profile._json.personaname,
                 avatar: profile._json.avatar
-            }
-
+            };
             return done(null, user);
         }));
 

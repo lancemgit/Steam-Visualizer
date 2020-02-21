@@ -1,4 +1,4 @@
-const db = require("./models");
+const db = require("../models");
 
 module.exports = {
     // This is where the database calls will be in object format
@@ -7,13 +7,14 @@ module.exports = {
     // have a parameter called force to force call the api bypassing the 1 week restriction
     // Return the object or promise with the object with the data
 
-
-
     // Get multiple games and if they are not there than add them to the database
     // Accepts array of gameids, dont allow force call
     // Return array of objects
 
-
     // Get list of achievements from a appid
     // Return an array of objects
+
+    getGame: function (appid, force) {
+
+    }
 }
