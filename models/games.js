@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const gameSchema = new Schema({
     appid: Number, //Steam API
-    title: String, //Steam API
+    name: String, //Steam API
+    appurl: String,
     short_description: String, //Steam API
     header_image: String, //Steam API
     developer: String,

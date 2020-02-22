@@ -17,6 +17,7 @@ module.exports = {
         return new Promise(async (resolve) => {
             let returnedGames = [];
             for (let i = 0; i < appids.length; i++) {
+                // Checking to see if the given appid exists in the db
                 const found = await db.Games.findOne({ appid: appids[i] });
                 if (found) {
                     if (compareTimeDay(found.last_updated) && !force) {
@@ -27,6 +28,7 @@ module.exports = {
                 }
 
                 let newGame = {};
+                // Setting a variable to SteamAPI info
                 const steamApiInfo = await axios.get("https://store.steampowered.com/api/appdetails?appids=" + appids[i]);
                 const currentGameApi = steamApiInfo.data[appids[i]];
 
@@ -34,12 +36,14 @@ module.exports = {
                     returnedGames.push({ appid: "invalid appid" });
                     continue;
                 } else {
+                    // Setting a varible to SteamSpy info
                     const steamSpyInfo = await axios.get("https://steamspy.com/api.php?request=appdetails&appid=" + appids[i]);
                     const currentGameSpy = steamSpyInfo.data;
 
-                    // Setting relevant data to newGame object
+                    // Setting relevant data to newGame object to push to db
                     newGame.appid = currentGameApi.data.steam_appid;
-                    newGame.title = currentGameApi.data.title;
+                    newGame.name = currentGameApi.data.name;
+                    newGame.appurl = "https://store.steampowered.com/app/" + newGame.appid;
                     newGame.short_description = currentGameApi.data.short_description;
                     newGame.header_image = currentGameApi.data.header_image;
                     newGame.release_date = currentGameApi.data.release_date.date;
@@ -55,6 +59,7 @@ module.exports = {
 
                     // Checking to see if the game should be updated in the db or a new on should be created
                     if (found) {
+                        // Updating last updated date
                         newGame.last_updated = Date.now();
                         const updated = await db.Games.findOneAndUpdate({ appid: found.appid }, newGame, { new: true })
                         returnedGames.push(updated);
