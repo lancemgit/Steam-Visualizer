@@ -57,7 +57,7 @@ module.exports = {
                     return resolve(updated);
                 } else {
                     console.log("created");
-                    newUser.views = 0;
+                    newUser.views = 1;
                     const created = db.Users.create(newUser)
                     return resolve(created);
                 }
@@ -66,6 +66,21 @@ module.exports = {
                 return resolve({ status: 404, reason: "Invalid SteamID" });
             }
         });
-
     },
+    getTopViews: function () {
+        return new Promise(async (resolve) => {
+
+            const found = await db.Users.find({}, {
+                personaname: 1,
+                steamid: 1,
+                views: 1,
+                profileurl: 1,
+                _id: 0
+            })
+                .sort({ views: -1 })
+                .limit(10);
+
+            return resolve(found);
+        });
+    }
 }

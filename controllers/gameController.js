@@ -20,7 +20,7 @@ module.exports = {
                 const found = await db.Games.findOne({ appid: appids[i] });
                 if (found) {
                     if (compareTimeDay(found.last_updated) && !force) {
-                        console.log("found")
+                        console.log("found");
                         returnedGames.push(found);
                         continue;
                     }
@@ -29,10 +29,10 @@ module.exports = {
                 let newGame = {};
                 const steamApiInfo = await axios.get("https://store.steampowered.com/api/appdetails?appids=" + appids[i]);
                 const currentGameApi = steamApiInfo.data[appids[i]];
-                const success = currentGameApi.success;
 
-                if (!success) {
+                if (!currentGameApi.success) {
                     returnedGames.push({ appid: "invalid appid" });
+                    continue;
                 } else {
                     const steamSpyInfo = await axios.get("https://steamspy.com/api.php?request=appdetails&appid=" + appids[i]);
                     const currentGameSpy = steamSpyInfo.data;
@@ -53,16 +53,17 @@ module.exports = {
                     newGame.ccu = currentGameSpy.ccu;
                     newGame.genre = currentGameSpy.genre;
 
+                    // Checking to see if the game should be updated in the db or a new on should be created
                     if (found) {
                         newGame.last_updated = Date.now();
                         const updated = await db.Games.findOneAndUpdate({ appid: found.appid }, newGame, { new: true })
                         returnedGames.push(updated);
-                        console.log("updated")
+                        console.log("updated");
                         continue;
 
                     } else {
                         const created = await db.Games.create(newGame)
-                        console.log("created")
+                        console.log("created");
                         returnedGames.push(created);
                         continue;
                     }
@@ -70,5 +71,5 @@ module.exports = {
             }
             return resolve(returnedGames);
         });
-    }
+    },
 }
