@@ -1,6 +1,6 @@
 <script>
     window.opener.postMessage({
         token: {{{ jwtToken }}}
-    }, "http://localhost:3000");
+    }, "*");
     window.close();
 </script>
