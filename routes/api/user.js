@@ -5,8 +5,7 @@ const gameController = require("../../controllers/gameController");
 // Matches with "/api/user"
 
 router.get("", async function (req, res) {
-  const id = req.body.id;
-  res.json(await userController.getUser(id, true));
+  res.json(await userController.getUserData(req.body.id, req.body.force));
 });
 
 module.exports = router;
