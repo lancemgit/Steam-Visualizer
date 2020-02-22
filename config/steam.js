@@ -23,6 +23,5 @@ module.exports = app => {
         }));
 
     app.use(passport.initialize());
-
 };
 

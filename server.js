@@ -6,7 +6,6 @@ const exphbs = require('express-handlebars');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-
 // Handlebars
 app.engine('handlebars', exphbs());
 app.set('view engine', 'handlebars');
@@ -27,6 +26,7 @@ app.use(routes);
 
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/steam-visualizer");
+// Allowing deprecated command of findOneAndUpdate etc.
 mongoose.set('useFindAndModify', false);
 
 // Start the API server

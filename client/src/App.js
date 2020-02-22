@@ -21,7 +21,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Login Test</h1>
         <img
           onClick={this.onHandleLogin}
           src="https://steamcommunity-a.akamaihd.net/public/images/signinthroughsteam/sits_01.png"
