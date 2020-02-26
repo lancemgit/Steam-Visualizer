@@ -13,6 +13,8 @@ const userSchema = new Schema({
         playtime_2weeks: String,
         playtime_forever: String
     }],
+    game_count: String,
+    friend_count: String,
     views: Number, // The amount of times the profile has been looked up
     last_updated: { type: Date, default: Date.now } //Only update once a day unless force refreshed
 });

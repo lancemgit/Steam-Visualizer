@@ -38,6 +38,8 @@ module.exports = {
                     + process.env.STEAM_KEY + "&steamid=" + id);
                 const recentGames = await axios.get("https://api.steampowered.com/IPlayerService/GetRecentlyPlayedGames/v1/?key="
                     + process.env.STEAM_KEY + "&steamid=" + id + "&count=" + 3);
+                const ownedGames = await axios.get("https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key="
+                    + process.env.STEAM_KEY + "&steamid=" + id);
 
                 // Setting necessary fields to information
                 newUser.steamid = player.steamid;
@@ -47,6 +49,16 @@ module.exports = {
                 newUser.personaname = player.personaname;
                 newUser.steam_level = steamLvl.data.response.player_level;
                 newUser.games = recentGames.data.response.games;
+                newUser.game_count = ownedGames.data.response.game_count;
+
+                // Checking to see if the friends list will be visible in the api
+                if (newUser.communityvisibilitystate === 3) {
+                    const friendList = await axios.get("https://api.steampowered.com/ISteamUser/GetFriendList/v1/?key="
+                        + process.env.STEAM_KEY + "&steamid=" + id);
+                    newUser.friend_count = friendList.data.friendslist.friends.length
+                } else {
+                    newUser.friend_count = "Not public";
+                }
 
                 // Checking to see if the user should be created or updated
                 if (found) {
@@ -62,8 +74,8 @@ module.exports = {
                     return resolve(created);
                 }
             } else {
-                // If a player is not returned then it is considered a failure
-                return resolve({ status: 404, reason: "Invalid SteamID" });
+                // If a player is not returned then it is considered a failure and a status stating so is returned
+                return resolve({ status: "Invalid SteamID" });
             }
         });
     },

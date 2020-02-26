@@ -4,6 +4,7 @@ const passport = require("passport");
 
 // Matches with "/auth"
 
+
 router.get("/steam",
     passport.authenticate("steam", { session: false }));
 
