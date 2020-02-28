@@ -17,7 +17,7 @@ router.get("/steam/return",
             console.log("=================================\nHitting Auth Routes");
             let token = jwt.sign({ user: req.user },
                 process.env.SECRET_KEY);
-            res.render("authenticated", { jwtToken: JSON.stringify(token) });
+            res.render("authenticated", { jwtToken: JSON.stringify(token), realm: JSON.stringify(process.env.REACT_APP_REALM) });
         });
 
 module.exports = router;

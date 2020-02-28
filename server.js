@@ -23,6 +23,7 @@ if (process.env.NODE_ENV === "production") {
 require("./config/steam")(app);
 // Add routes, both API and view
 app.use(routes);
+console.log(process.env.REACT_APP_REALM);
 
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/steam-visualizer");

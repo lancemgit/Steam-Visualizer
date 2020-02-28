@@ -1,9 +1,12 @@
 const passport = require("passport");
 const SteamStrategy = require("passport-steam");
 
+const urlReturn = process.env.API_APP_REALM + "/auth/steam/return";
+const realm = process.env.API_APP_REALM
+
 const strategyOptions = {
-    returnURL: `http://localhost:3001/auth/steam/return`,
-    realm: "http://localhost:3001",
+    returnURL: urlReturn,
+    realm: realm,
     apiKey: process.env.STEAM_KEY
 }
 

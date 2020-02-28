@@ -16,7 +16,8 @@ class LoginButton extends Component {
     };
 
     handleLogin = () => {
-        const popupWindow = window.open('http://localhost:3001/auth/steam', '_blank', 'width=800, height=600');
+        const authLink = process.env.REACT_APP_API_REALM + "/auth/steam";
+        const popupWindow = window.open(authLink, '_blank', 'width=800, height=600');
         if (window.focus) popupWindow.focus();
     }
 
@@ -36,7 +37,7 @@ class LoginButton extends Component {
 
         window.addEventListener('message', event => {
 
-            if (event.origin !== "http://localhost:3001") {
+            if (event.origin !== process.env.REACT_APP_API_REALM) {
                 return;
             }
 
@@ -65,10 +66,10 @@ class LoginButton extends Component {
                                     <DropdownMenu right>
                                         <DropdownItem>
                                             Profile
-                  </DropdownItem>
+                                        </DropdownItem>
                                         <DropdownItem onClick={this.handleLogout}>
                                             Logout
-                  </DropdownItem>
+                                        </DropdownItem>
                                     </DropdownMenu>
                                 </UncontrolledDropdown>
                             </Nav>

@@ -30,6 +30,7 @@ module.exports = {
             const steamUser = await axios.get("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key="
                 + process.env.STEAM_KEY + "&steamids=" + id);
             const player = steamUser.data.response.players[0];
+            console.log(steamUser.data.response.players[0]);
 
             // Checking to see if any user was returned
             if (player) {
@@ -44,7 +45,7 @@ module.exports = {
                 // Setting necessary fields to information
                 newUser.steamid = player.steamid;
                 newUser.profileurl = "https://steamcommunity.com/profiles/" + player.steamid;
-                newUser.avatar = player.avatar;
+                newUser.avatar = player.avatarfull;
                 newUser.communityvisibilitystate = player.communityvisibilitystate;
                 newUser.personaname = player.personaname;
                 newUser.steam_level = steamLvl.data.response.player_level;

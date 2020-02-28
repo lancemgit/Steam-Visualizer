@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import LoginButton from "./LoginButton";
+import LoginButton from "../LoginButton";
 import {
     Collapse,
     Navbar,

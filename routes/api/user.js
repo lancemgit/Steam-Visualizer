@@ -6,6 +6,7 @@ const gameController = require("../../controllers/gameController");
 
 router.get("/", async function (req, res) {
   // Checking to see if a user ID was provided
+  console.log(req.query)
   if (!req.query.id) {
     return res.json({ status: "Invalid SteamID" });
   }
@@ -16,6 +17,10 @@ router.get("/", async function (req, res) {
   }
 
   let userData = await userController.getUserData(req.query.id, req.query.force);
+  if (userData.status === "Invalid SteamID") {
+    return res.json(userData);
+  }
+
   // Adding all the games from the users data into an array to get the information about the game later
   let gameArr = [];
   for (let i = 0; i < userData.games.length; i++) {
