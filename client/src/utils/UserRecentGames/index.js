@@ -1,11 +1,11 @@
 import React from "react";
 import { Row, Col, Card, CardBody } from "reactstrap"
 
-function UserRecentGames(props) {
+const UserRecentGames = (props) => {
     return (
         <Card>
             <Row>
-                {props.games.map(game => {
+                {props.games ? (<div>{props.games.map(game => {
                     if (game.appid !== "invalid appid") {
                         return (
                             <Col md="4" sm="12" key={game.appid}>
@@ -14,7 +14,9 @@ function UserRecentGames(props) {
                             </Col>
                         );
                     }
-                })}
+                })}</div>)
+                    :
+                    (<div>Not Available</div>)}
             </Row>
         </Card>
     )

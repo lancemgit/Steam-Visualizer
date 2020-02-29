@@ -21,9 +21,8 @@ class UserResult extends Component {
     }
 
     componentDidMount() {
-
         if (this.props.location.state) {
-            axios.get("/api/user/?id=" + this.props.location.state).then((res) => {
+            axios.get("/api/user/?id=" + this.props.location.state.trim()).then((res) => {
                 let data = res.data;
                 console.log(res.data);
                 if (data.status === "Invalid SteamID") {
@@ -47,12 +46,12 @@ class UserResult extends Component {
                 };
             }).catch((err) => {
                 console.log(err);
+                this.setState({ status: 1 });
             });
         } else {
             // Bad status
             this.setState({ status: 1 });
         }
-
     }
 
     render() {
@@ -82,7 +81,7 @@ class UserResult extends Component {
                         )
                             :
                             (
-                                <div>bad</div>
+                                <div>Bad Search</div>
                             )}
                     </div>)}
             </div>

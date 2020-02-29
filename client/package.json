@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "dependencies": {
+    "@amcharts/amcharts4": "^4.9.4",
     "axios": "^0.18.1",
     "bootstrap": "^4.4.1",
     "react": "^16.12.0",

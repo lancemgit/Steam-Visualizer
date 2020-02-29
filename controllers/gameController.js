@@ -15,8 +15,15 @@ module.exports = {
 
     getGames: function (appids, force) {
         return new Promise(async (resolve) => {
+
             let returnedGames = [];
             for (let i = 0; i < appids.length; i++) {
+                console.log(typeof appids[i]);
+                if (!appids[i].match(/^[0-9]+$/)) {
+                    returnedGames.push({ appid: "Invalid AppID" });
+                    continue;
+                }
+
                 // Checking to see if the given appid exists in the db
                 const found = await db.Games.findOne({ appid: appids[i] });
                 if (found) {
@@ -32,8 +39,8 @@ module.exports = {
                 const steamApiInfo = await axios.get("https://store.steampowered.com/api/appdetails?appids=" + appids[i]);
                 const currentGameApi = steamApiInfo.data[appids[i]];
 
-                if (!currentGameApi.success) {
-                    returnedGames.push({ appid: "invalid appid" });
+                if (!currentGameApi) {
+                    returnedGames.push({ appid: "Invalid AppID" });
                     continue;
                 } else {
                     // Setting a varible to SteamSpy info
@@ -54,6 +61,8 @@ module.exports = {
                     newGame.owners = currentGameSpy.owners;
                     newGame.average_forever = currentGameSpy.average_forever;
                     newGame.average_2weeks = currentGameSpy.average_2weeks;
+                    newGame.median_forever = currentGameSpy.median_forever;
+                    newGame.median_2weeks = currentGameSpy.median_2weeks;
                     newGame.ccu = currentGameSpy.ccu;
                     newGame.genre = currentGameSpy.genre;
 

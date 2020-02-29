@@ -49,16 +49,22 @@ module.exports = {
                 newUser.communityvisibilitystate = player.communityvisibilitystate;
                 newUser.personaname = player.personaname;
                 newUser.steam_level = steamLvl.data.response.player_level;
-                newUser.games = recentGames.data.response.games;
-                newUser.game_count = ownedGames.data.response.game_count;
+
+                if (recentGames.data.response.games) {
+                    newUser.games = recentGames.data.response.games;
+                    newUser.game_count = ownedGames.data.response.game_count;
+                } else {
+                    newUser.games = null;
+                    newUser.game_count = "Not Available";
+                }
 
                 // Checking to see if the friends list will be visible in the api
-                if (newUser.communityvisibilitystate === 3) {
+                try {
                     const friendList = await axios.get("https://api.steampowered.com/ISteamUser/GetFriendList/v1/?key="
                         + process.env.STEAM_KEY + "&steamid=" + id);
-                    newUser.friend_count = friendList.data.friendslist.friends.length
-                } else {
-                    newUser.friend_count = "Not public";
+                    newUser.friend_count = friendList.data.friendslist.friends.length;
+                } catch (err) {
+                    newUser.friend_count = "Not Available";
                 }
 
                 // Checking to see if the user should be created or updated

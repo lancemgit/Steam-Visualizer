@@ -13,16 +13,15 @@ router.get("/", async function (req, res) {
   // Checking to see if a force variable was provided
   // If it was now then it is set to false
   if (!req.query.force) {
-    req.body.force = false;
+    req.query.force = false;
   }
 
   let userData = await userController.getUserData(req.query.id, req.query.force);
-  if (userData.status === "Invalid SteamID") {
-    return res.json(userData);
+  if (userData.status === "Invalid SteamID" || !userData.games) {
+    return res.json({ user: userData });
   }
 
   // Adding all the games from the users data into an array to get the information about the game later
-  let gameArr = [];
   for (let i = 0; i < userData.games.length; i++) {
     gameArr.push(userData.games[i].appid);
   }
@@ -34,11 +33,11 @@ router.get("/", async function (req, res) {
     gameInfo: namePics
   };
 
-  res.json(result);
+  return res.json(result);
 });
 
 router.get("/views", async function (req, res) {
-  res.json(await userController.getTopViews());
+  return res.json(await userController.getTopViews());
 });
 
 module.exports = router;
