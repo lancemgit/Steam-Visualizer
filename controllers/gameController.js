@@ -18,7 +18,6 @@ module.exports = {
 
             let returnedGames = [];
             for (let i = 0; i < appids.length; i++) {
-                console.log(typeof appids[i]);
                 if (!appids[i].match(/^[0-9]+$/)) {
                     returnedGames.push({ appid: "Invalid AppID" });
                     continue;

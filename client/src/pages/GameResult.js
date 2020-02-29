@@ -94,7 +94,13 @@ class GameResult extends Component {
                                     genre={this.state.genre}
                                 />
 
-                                <GameReviewChart></GameReviewChart>
+                                <GameReviewChart
+                                    positive={Number(this.state.positive)}
+                                    negative={Number(this.state.negative)}
+                                />
+                                <br></br>
+                                <br></br>
+                                <br></br>
                             </div>
                         )
                             :
