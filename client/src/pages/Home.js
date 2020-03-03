@@ -4,7 +4,7 @@ import GameSearch from "../utils/GameSearch";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import {
-    Card, Button, CardHeader, CardFooter, CardBody,
+    Card, Button, CardBody,
     CardTitle, CardText, Row, Col
 } from 'reactstrap';
 
@@ -44,12 +44,14 @@ class Home extends Component {
                     <Col md="3" sm="12">
                         {this.state.users ? (
                             this.state.users.map(user => {
+                                console.log(user);
                                 return (
                                     <div>
                                         <Link to={{
                                             pathname: '/user',
-                                            state: user.id
-                                        }}>{user.personaname} - {user.views}
+                                            state: user.steamid
+                                        }}>
+                                            {user.personaname} - {user.views}
                                         </Link>
                                     </div>
                                 );

@@ -3,6 +3,8 @@ import axios from 'axios';
 import GameMainCard from '../utils/GameMainCard';
 import GameReviewChart from '../utils/GameReviewChart';
 import { Row, Col, Button, Form, FormGroup, Label, Input } from "reactstrap"
+import BarTimeChart from '../utils/BarTimeChart';
+import ComparisonTimeChart from '../utils/ComparisonTimeChart';
 
 class GameResult extends Component {
 
@@ -25,7 +27,10 @@ class GameResult extends Component {
         median_2weeks: null,
         ccu: null,
         genre: null,
-        user_search: ""
+        user_search: "",
+        user_time: null,
+        user_fail: true,
+
     }
 
     handleInputChange = event => {
@@ -38,7 +43,12 @@ class GameResult extends Component {
     handleUserSearch = () => {
         console.log(this.state.user_search.trim());
         axios.get("/api/user/getgame/?id=" + this.state.user_search.trim() + "&gameid=" + this.state.appid).then((res) => {
-            console.log(res.data);
+
+            if (res.data.status) {
+                this.setState({ user_fail: true });
+            } else {
+                this.setState({ user_fail: false, user_time: res.data.user_playtime_forever });
+            }
         });
     }
 
@@ -134,11 +144,26 @@ class GameResult extends Component {
                                             <Button className="justify-content-center" onClick={this.handleUserSearch}>Search id</Button>
                                         </Form>
 
+                                        {!this.state.user_fail ?
+                                            (<ComparisonTimeChart
+                                                UserTime={this.state.user_time}
+                                                GlobalTime={this.state.average_forever}
+                                                chartName="Average Time (User VS. Global) (Min)" />)
+                                            :
+                                            (<div>Please Search for a Valid Steam64ID.</div>)}
+
                                     </Col>
 
 
                                     <Col md="6" sm="12">global
-
+                                         <BarTimeChart
+                                            Weeks2={this.state.median_2weeks}
+                                            AllTime={this.state.median_forever}
+                                            chartName="Median Playtime (Min)" />
+                                        <BarTimeChart
+                                            Weeks2={this.state.average_2weeks}
+                                            AllTime={this.state.average_forever}
+                                            chartName="Average Playtime (Min)" />
                                     </Col>
                                 </Row>
                                 <br></br>

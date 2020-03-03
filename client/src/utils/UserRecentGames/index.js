@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Card, CardBody } from "reactstrap"
+import { Row, Col, Card } from "reactstrap"
 
 const UserRecentGames = (props) => {
     return (
