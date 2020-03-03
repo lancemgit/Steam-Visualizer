@@ -6,7 +6,6 @@ const gameController = require("../../controllers/gameController");
 
 router.get("/", async function (req, res) {
   // Checking to see if a user ID was provided
-  console.log(req.query)
   if (!req.query.id) {
     return res.json({ status: "Invalid SteamID" });
   }
@@ -22,6 +21,7 @@ router.get("/", async function (req, res) {
   }
 
   // Adding all the games from the users data into an array to get the information about the game later
+  let gameArr = [];
   for (let i = 0; i < userData.games.length; i++) {
     gameArr.push(userData.games[i].appid);
   }
@@ -38,6 +38,18 @@ router.get("/", async function (req, res) {
 
 router.get("/views", async function (req, res) {
   return res.json(await userController.getTopViews());
+});
+
+router.get("/getgame", async function (req, res) {
+  if (!req.query.id) {
+    return res.json({ status: "Invalid SteamID" });
+  }
+
+  if (!req.query.gameid) {
+    return res.json({ status: "Invalid AppID" });
+  }
+
+  return res.json(await userController.getUserGame(req.query.id, req.query.gameid));
 });
 
 module.exports = router;

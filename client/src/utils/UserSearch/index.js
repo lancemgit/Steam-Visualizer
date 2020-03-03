@@ -22,7 +22,13 @@ class GameSearch extends Component {
                 <FormGroup>
 
                     <Label for="userSearch"></Label>
-                    <Input type="text" name="userSearch" id="userSearch" placeholder="Steam64ID" onChange={this.handleInputChange} value={this.state.search} />
+                    <Input
+                        type="text"
+                        name="userSearch"
+                        id="userSearch"
+                        placeholder="Steam64ID"
+                        onChange={this.handleInputChange}
+                        value={this.state.search} />
                 </FormGroup>
 
                 <Button className="justify-content-center" onClick={this.handleUserSearch}><Link to={{

@@ -17,19 +17,19 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <HeaderBar></HeaderBar>
-        <Container>
-          <Router>
-            <div>
+        <Router>
+          <div>
+            <HeaderBar></HeaderBar>
+            <Container>
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/game" component={GameResult} />
                 <Route path="/user" component={UserResult} />
                 <Route component={Home} />
               </Switch>
-            </div>
-          </Router>
-        </Container>
+            </Container>
+          </div>
+        </Router>
       </div>
     );
   }

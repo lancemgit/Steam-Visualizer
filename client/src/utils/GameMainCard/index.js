@@ -9,7 +9,6 @@ function GameMainCard(props) {
 
     return (
         <Card>
-            {console.log(props)}
             <Row>
                 <CardBody>
                     <Col>
@@ -22,6 +21,7 @@ function GameMainCard(props) {
                             </CardTitle>
                         </a>
                         <CardText>
+                            {/* steam://run/ */}
                             <div>short desc {props.shortDescription}</div>
                             <div>release {props.releaseDate}</div>
                             <div>dev {props.developer}</div>
@@ -34,6 +34,7 @@ function GameMainCard(props) {
                             <div>median 2 {props.median2Weeks}</div>
                             <div>ccu {props.ccu}</div>
                             <div>genre {props.genre}</div>
+                            <a href={props.steamLink}><Button>test</Button></a>
                         </CardText>
                     </Col>
                 </CardBody>

@@ -6,13 +6,15 @@ import {
     DropdownMenu,
     DropdownItem,
 } from 'reactstrap';
+import { Link } from "react-router-dom";
 
 class LoginButton extends Component {
 
     state = {
         name: "",
         avatar: "",
-        id: ""
+        id: "",
+        url: ""
     };
 
     handleLogin = () => {
@@ -24,7 +26,7 @@ class LoginButton extends Component {
     handleLogout = () => {
         localStorage.removeItem("authToken");
         localStorage.removeItem("user");
-        this.setState({ name: "", avatar: "", id: "" });
+        this.setState({ name: "", avatar: "", id: "", url: "" });
     }
 
     componentDidMount = () => {
@@ -32,7 +34,7 @@ class LoginButton extends Component {
         let user = localStorage.getItem("user");
         if (user) {
             user = JSON.parse(user);
-            this.setState({ name: user.name, avatar: user.avatar, id: user.id });
+            this.setState({ name: user.name, avatar: user.avatar, id: user.id, url: "https://steamcommunity.com/profiles/" + user.id });
         }
 
         window.addEventListener('message', event => {
@@ -64,9 +66,22 @@ class LoginButton extends Component {
                                         {this.state.name}
                                     </DropdownToggle>
                                     <DropdownMenu right>
-                                        <DropdownItem>
-                                            Profile
-                                        </DropdownItem>
+                                        <a href={this.state.url}>
+                                            <DropdownItem>
+                                                Steam Page
+                                            </DropdownItem>
+                                        </a>
+
+                                        <Link to={{
+                                            pathname: '/user',
+                                            state: this.state.id
+                                        }}><DropdownItem>
+                                                Your Stats
+                                    </DropdownItem></Link>
+
+                                        <a href={this.state.url}>
+
+                                        </a>
                                         <DropdownItem onClick={this.handleLogout}>
                                             Logout
                                         </DropdownItem>

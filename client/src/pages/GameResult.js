@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import GameMainCard from '../utils/GameMainCard';
 import GameReviewChart from '../utils/GameReviewChart';
+import { Row, Col, Button, Form, FormGroup, Label, Input } from "reactstrap"
 
 class GameResult extends Component {
 
@@ -23,15 +24,28 @@ class GameResult extends Component {
         median_forever: null,
         median_2weeks: null,
         ccu: null,
-        genre: null
+        genre: null,
+        user_search: ""
+    }
+
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+            [name]: value
+        });
+    };
+
+    handleUserSearch = () => {
+        console.log(this.state.user_search.trim());
+        axios.get("/api/user/getgame/?id=" + this.state.user_search.trim() + "&gameid=" + this.state.appid).then((res) => {
+            console.log(res.data);
+        });
     }
 
     componentDidMount() {
         if (this.props.location.state) {
             axios.put("/api/game", { appids: [this.props.location.state.trim()] }).then((res) => {
                 const game = res.data[0];
-                console.log(game);
-
                 if (res.data.status || res.data[0].appid === "Invalid AppID") {
                     this.setState({ status: 1 });
                 } else {
@@ -92,6 +106,7 @@ class GameResult extends Component {
                                     median2Weeks={this.state.median_2weeks}
                                     ccu={this.state.ccu}
                                     genre={this.state.genre}
+                                    steamLink={"steam://run/" + this.state.appid}
                                 />
 
                                 <GameReviewChart
@@ -100,6 +115,32 @@ class GameResult extends Component {
                                 />
                                 <br></br>
                                 <br></br>
+                                <br></br>
+
+                                <Row>
+                                    <Col md="6" sm="12">personalized
+
+                                    <Form onSubmit={e => { e.preventDefault(); }} className="text-center">
+                                            <FormGroup>
+                                                <Label for="user_search"></Label>
+                                                <Input
+                                                    type="text"
+                                                    name="user_search"
+                                                    id="user_search"
+                                                    placeholder="Steam64ID"
+                                                    onChange={this.handleInputChange}
+                                                    value={this.state.user_search} />
+                                            </FormGroup>
+                                            <Button className="justify-content-center" onClick={this.handleUserSearch}>Search id</Button>
+                                        </Form>
+
+                                    </Col>
+
+
+                                    <Col md="6" sm="12">global
+
+                                    </Col>
+                                </Row>
                                 <br></br>
                             </div>
                         )

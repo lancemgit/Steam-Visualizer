@@ -101,5 +101,28 @@ module.exports = {
 
             return resolve(found);
         });
+    },
+    getUserGame: function (id, gameid) {
+        return new Promise(async (resolve) => {
+            await axios.get("https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=" + process.env.STEAM_KEY
+                + "&steamid=" + id).then(function (res) {
+                    console.log("somethign");
+                    const gameList = res.data.response.games;
+                    // Looping through the objects of objects and checking if the given gameid is given
+                    for (game in gameList) {
+                        console.log("anything");
+                        if (gameList[game].appid === Number(gameid)) {
+                            console.log("nothing");
+                            return resolve({ user_playtime_forever: gameList[game].playtime_forever });
+                        }
+                    }
+                    // If it is not owned then the a status saying that is given
+                    return resolve({ status: "Not Owned" })
+
+                }).catch(function (err) {
+                    // If any error occurs from the api call then the steamID is bad
+                    return resolve({ status: "Invalid SteamID" });
+                });
+        });
     }
 }

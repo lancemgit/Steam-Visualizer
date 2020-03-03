@@ -7,14 +7,13 @@ function GameReviewChart(props) {
 
     const data = [
         {
-            name: 'Review Scores :',
+            name: 'Review Scores',
             Positive: props.positive,
             Negative: props.negative,
         }
     ];
 
     return (
-
         <ResponsiveContainer width="100%" height={75}>
             <BarChart
                 data={data}
