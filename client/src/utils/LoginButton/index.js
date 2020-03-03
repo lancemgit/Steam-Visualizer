@@ -18,6 +18,7 @@ class LoginButton extends Component {
     };
 
     handleLogin = () => {
+        console.log(process.env.REACT_APP_API_REALM);
         const authLink = process.env.REACT_APP_API_REALM + "/auth/steam";
         const popupWindow = window.open(authLink, '_blank', 'width=800, height=600');
         if (window.focus) popupWindow.focus();
