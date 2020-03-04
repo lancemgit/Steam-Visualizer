@@ -5,21 +5,16 @@ import GameResult from "./pages/GameResult";
 import UserResult from "./pages/UserResult";
 import { Container } from "reactstrap";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
-// import './App.css';
+import AppFooter from './utils/AppFooter';
+import "./App.css";
 
 class App extends Component {
-
-  componentDidMount() {
-
-  }
-
   render() {
     return (
       <div className="App">
         <Router>
           <div>
-            <HeaderBar></HeaderBar>
+            <HeaderBar />
             <Container>
               <Switch>
                 <Route exact path="/" component={Home} />
@@ -28,6 +23,7 @@ class App extends Component {
                 <Route component={Home} />
               </Switch>
             </Container>
+            <AppFooter />
           </div>
         </Router>
       </div>

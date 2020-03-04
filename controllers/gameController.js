@@ -38,7 +38,7 @@ module.exports = {
                 const steamApiInfo = await axios.get("https://store.steampowered.com/api/appdetails?appids=" + appids[i]);
                 const currentGameApi = steamApiInfo.data[appids[i]];
 
-                if (!currentGameApi) {
+                if (!currentGameApi || !steamApiInfo.data[appids[i]].success) {
                     returnedGames.push({ appid: "Invalid AppID" });
                     continue;
                 } else {

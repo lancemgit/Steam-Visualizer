@@ -14,15 +14,15 @@ function GameReviewChart(props) {
     ];
 
     return (
-        <ResponsiveContainer width="100%" height={75}>
+        <ResponsiveContainer className="blackText" width="100%" height={75}>
             <BarChart
                 data={data}
                 layout="vertical">
                 <XAxis type="number" label="Review Scores" tick={false} domain={[0, (data.Positive + data.Negative)]} hide />
                 <YAxis type="category" dataKey="name" tick={false} hide />
                 <Tooltip dataKey="name" />
-                <Bar dataKey="Positive" stackId='a' fill="#8884d8" />
-                <Bar dataKey="Negative" stackId='a' fill="#444444" />
+                <Bar dataKey="Positive" stackId='a' fill="#7da10e" />
+                <Bar dataKey="Negative" stackId='a' fill="#cd5d5f" />
             </BarChart>
         </ResponsiveContainer>
     );

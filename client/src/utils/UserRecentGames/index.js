@@ -3,7 +3,7 @@ import { Row, Col, Card } from "reactstrap"
 
 const UserRecentGames = (props) => {
     return (
-        <Card>
+        <Card className="customCard">
             <Row>
                 {props.games ? (<div>{props.games.map(game => {
                     if (game.appid !== "invalid appid") {

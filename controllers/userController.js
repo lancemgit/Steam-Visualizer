@@ -30,7 +30,6 @@ module.exports = {
             const steamUser = await axios.get("https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key="
                 + process.env.STEAM_KEY + "&steamids=" + id);
             const player = steamUser.data.response.players[0];
-            console.log(steamUser.data.response.players[0]);
 
             // Checking to see if any user was returned
             if (player) {

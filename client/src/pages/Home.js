@@ -16,8 +16,6 @@ class Home extends Component {
 
     componentDidMount() {
         axios.get("/api/user/views").then((res) => {
-            console.log(res.data);
-
             this.setState({ users: res.data });
         });
     }
@@ -30,7 +28,7 @@ class Home extends Component {
                 <GameSearch></GameSearch>
                 <Row>
                     <Col md="9" sm="12">
-                        <Card>
+                        <Card className="customCard">
                             <CardBody>
                                 <CardTitle>FAQ</CardTitle>
                                 {/* <CardSubtitle>Card subtitle</CardSubtitle> */}
@@ -42,26 +40,46 @@ class Home extends Component {
 
 
                     <Col md="3" sm="12">
-                        {this.state.users ? (
-                            this.state.users.map(user => {
-                                console.log(user);
-                                return (
-                                    <div>
-                                        <Link to={{
-                                            pathname: '/user',
-                                            state: user.steamid
-                                        }}>
-                                            {user.personaname} - {user.views}
-                                        </Link>
+                        <Card className="customCard">
+                            <CardBody>
+                                <CardTitle className="text-center">
+                                    <h5>Top Profiles (Views)</h5>
+                                </CardTitle>
+                                <hr></hr>
+                                {this.state.users ? (
+                                    <div style={{ display: "grid" }}>
+                                        <table stlye={{ width: "100%" }}>
+                                            <tr>
+                                                <th>Steam Name</th>
+                                                <th>Views</th>
+                                            </tr>
+                                            {this.state.users.map(user => {
+                                                return (
+                                                    <tr>
+                                                        <td>
+                                                            <Link to={{
+                                                                pathname: '/user',
+                                                                state: user.steamid
+                                                            }}>
+                                                                {user.personaname}
+                                                            </Link>
+                                                        </td>
+                                                        <td>
+                                                            {user.views}
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })
+                                            }
+                                        </table>
                                     </div>
-                                );
-                            })
-                        )
-                            : (<div>Waiting</div>)}
+                                )
+                                    : (<div>Waiting</div>)}
+                            </CardBody>
+                        </Card>
+
                     </Col>
                 </Row>
-
-
             </div>
         )
     }

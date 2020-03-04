@@ -6,8 +6,7 @@ import {
 
 function UserMainCard(props) {
     return (
-        <Card>
-            {console.log(props)}
+        <Card className="customCard">
             <Row>
                 <CardBody>
                     <Col>

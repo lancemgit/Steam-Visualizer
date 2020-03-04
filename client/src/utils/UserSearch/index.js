@@ -20,9 +20,9 @@ class GameSearch extends Component {
         return (
             <Form onSubmit={e => { e.preventDefault(); }} className="text-center">
                 <FormGroup>
-
                     <Label for="userSearch"></Label>
                     <Input
+                        className="customForm"
                         type="text"
                         name="userSearch"
                         id="userSearch"
@@ -31,10 +31,13 @@ class GameSearch extends Component {
                         value={this.state.search} />
                 </FormGroup>
 
-                <Button className="justify-content-center" onClick={this.handleUserSearch}><Link to={{
+                <Link to={{
                     pathname: '/user',
                     state: this.state.userSearch
-                }}>Search</Link></Button>
+                }}><Button className="customButton">
+                        Search
+                    </Button>
+                </Link>
             </Form>
         );
     }

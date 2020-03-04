@@ -22,7 +22,7 @@ function ComparisonTimeChart(props) {
 
     return (
         <div className="text-center">
-            <ResponsiveContainer width="90%" height={275}>
+            <ResponsiveContainer className="blackText" width="90%" height={275}>
                 <ComposedChart
                     data={data}
                     margin={{

@@ -18,17 +18,26 @@ class GameSearch extends Component {
 
     render() {
         return (
-            <Form className="text-center">
+            <Form onSubmit={e => { e.preventDefault(); }} className="text-center">
                 <FormGroup>
-
                     <Label for="gameSearch"></Label>
-                    <Input type="text" name="gameSearch" id="gameSearch" placeholder="Steam AppID" onChange={this.handleInputChange} value={this.state.search} />
+                    <Input
+                        className="customForm"
+                        type="text"
+                        name="gameSearch"
+                        id="gameSearch"
+                        placeholder="Steam AppID"
+                        onChange={this.handleInputChange}
+                        value={this.state.search} />
                 </FormGroup>
 
-                <Button className="justify-content-center" onClick={this.handleUserSearch}><Link to={{
+                <Link to={{
                     pathname: '/game',
                     state: this.state.gameSearch
-                }}>Search</Link></Button>
+                }}><Button className="customButton">
+                        Search
+                    </Button>
+                </Link>
             </Form>
         );
     }

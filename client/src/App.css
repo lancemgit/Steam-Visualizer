@@ -1,0 +1,48 @@
+body {
+    background-color: #1b2838 !important;
+    color: white !important;
+    font-family: 'Muli', sans-serif !important;
+}
+
+hr {
+    background-color: white !important;
+}
+
+.customCard {
+    border: 0 !important;
+    border-radius: 20px !important;
+    background-color: #171a21 !important;
+    margin-top: 1rem !important;
+}
+
+.customForm {
+    background-color: #171a21 !important;
+    color: #556772 !important;
+    border-radius: 20px !important;
+    border: 0 !important;
+}
+
+.customHeader {
+    background-color: #171a21 !important;
+    margin-bottom: .5rem !important;
+}
+
+.customHeaderColor {
+    color: white !important;
+}
+
+.customDropdown {
+    border-radius: 11px !important;
+}
+
+.customButton {
+    border-radius: 20px !important;
+}
+
+.blackText {
+    color: black !important;
+}
+
+.boldFont {
+    font-weight: bolder !important;
+}

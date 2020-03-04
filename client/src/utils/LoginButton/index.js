@@ -5,6 +5,7 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
+    Button
 } from 'reactstrap';
 import { Link } from "react-router-dom";
 
@@ -18,7 +19,6 @@ class LoginButton extends Component {
     };
 
     handleLogin = () => {
-        console.log(process.env.REACT_APP_API_REALM);
         const authLink = process.env.REACT_APP_API_REALM + "/auth/steam";
         const popupWindow = window.open(authLink, '_blank', 'width=800, height=600');
         if (window.focus) popupWindow.focus();
@@ -63,10 +63,14 @@ class LoginButton extends Component {
                         (
                             <Nav navbar>
                                 <UncontrolledDropdown nav inNavbar>
-                                    <DropdownToggle nav>
-                                        {this.state.name}
+
+                                    <DropdownToggle className="customHeaderColor" nav>
+                                        <Button className="boldFont customButton">
+                                            {this.state.name}
+                                        </Button>
                                     </DropdownToggle>
-                                    <DropdownMenu right>
+
+                                    <DropdownMenu className="customDropdown" right>
                                         <a href={this.state.url}>
                                             <DropdownItem>
                                                 Steam Page
@@ -92,7 +96,10 @@ class LoginButton extends Component {
                         )
                         :
                         (
-                            <div onClick={this.handleLogin}>Sign In</div>
+                            <Button>
+                                <div className="boldFont customButton" onClick={this.handleLogin}>Sign In</div>
+                            </Button>
+
                         )
                 }
             </div>

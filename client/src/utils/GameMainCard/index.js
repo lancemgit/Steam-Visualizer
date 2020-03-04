@@ -8,7 +8,7 @@ function GameMainCard(props) {
 
 
     return (
-        <Card>
+        <Card className="customCard">
             <Row>
                 <CardBody>
                     <Col>
