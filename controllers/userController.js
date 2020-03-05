@@ -108,9 +108,9 @@ module.exports = {
                 + "&steamid=" + id).then(function (res) {
                     const gameList = res.data.response.games;
                     // Looping through the objects of objects and checking if the given gameid is given
-                    for (game in gameList) {
-                        if (gameList[game].appid === Number(gameid)) {
-                            return resolve({ user_playtime_forever: gameList[game].playtime_forever });
+                    for (let i = 0; i < gameList.length; i++) {
+                        if (gameList[i].appid === Number(gameid)) {
+                            return resolve({ user_playtime_forever: gameList[i].playtime_forever });
                         }
                     }
                     // If it is not owned then the a status saying that is given
@@ -126,8 +126,7 @@ module.exports = {
         return new Promise(async (resolve) => {
             await axios.get("https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=" + process.env.STEAM_KEY
                 + "&steamid=" + id).then(function (res) {
-                    const gameList = res.data.response;
-                    console.log(res.data.response.game_count);
+                    const gameList = res.data.response.games;
                     let data = {
                         noTime: 0,
                         oneHour: 0,
@@ -135,10 +134,10 @@ module.exports = {
                         gameCount: res.data.response.game_count
                     }
                     // Looping through the objects of objects and checking if the given gameid is given
-                    for (game in gameList) {
-                        if (gameList[game].playtime_forever === 0) {
+                    for (let i = 0; i < gameList.length; i++) {
+                        if (gameList[i].playtime_forever === 0) {
                             data.noTime++
-                        } else if (gameList[game].playtime_forever > 0 && gameList[game].playtime_forever <= 60) {
+                        } else if (gameList[i].playtime_forever > 0 && gameList[i].playtime_forever <= 60) {
                             data.oneHour++
                         } else {
                             data.aboveOneHour++
