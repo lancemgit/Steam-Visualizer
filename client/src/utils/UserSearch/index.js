@@ -17,7 +17,6 @@ class GameSearch extends Component {
 
     componentDidMount() {
         let user = JSON.parse(localStorage.getItem('user'));
-        console.log(user);
         if (user) {
             user = user.id;
             this.setState({ userSearch: user });

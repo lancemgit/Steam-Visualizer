@@ -29,7 +29,8 @@ function HomeFAQ() {
                         How To
                                     </CardTitle>
                     <CardText>To use Steam Visualizer simply type in the Steam64ID of the user you want to look up, or the AppID of the game you want to lookup.
-                        Logging In will automatically input your Steam64ID into the search field.
+                        Logging In will automatically input your Steam64ID into the search field.  Make sure the profile you are searching is set to public visibility
+                        to recieve the best result.
                                 </CardText>
                     <br></br>
 

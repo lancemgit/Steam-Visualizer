@@ -40,9 +40,7 @@ class GameResult extends Component {
     };
 
     handleUserSearch = () => {
-        console.log(this.state.user_search.trim());
         axios.get("/api/user/getgame/?id=" + this.state.user_search.trim() + "&gameid=" + this.state.appid).then((res) => {
-            console.log(res);
             if (res.data.status) {
                 this.setState({ user_fail: true });
             } else {
@@ -53,7 +51,6 @@ class GameResult extends Component {
 
     componentDidMount() {
         let user = JSON.parse(localStorage.getItem('user'));
-
         if (this.props.location.state) {
             axios.put("/api/game", { appids: [this.props.location.state.trim()] }).then((res) => {
                 const game = res.data[0];
