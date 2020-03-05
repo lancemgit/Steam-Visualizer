@@ -7,8 +7,6 @@ import GameReviewChart from '../GameReviewChart';
 
 
 function GameMainCard(props) {
-
-
     return (
         <Card className="customCard">
             <CardBody>
@@ -77,7 +75,7 @@ function GameMainCard(props) {
                         <div className="text-center">
                             <h5 className="underlinedFont">Total Owners</h5>
                             <h5 className="percentColor">{
-                                (props.ccuAvg / 1000000000).toFixed(5)
+                                ((props.ccuAvg / 1000000000) * 100).toFixed(5)
                             }%</h5>
                             <p>Of The Steam User Base Owns This Game</p>
                         </div>
