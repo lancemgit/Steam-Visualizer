@@ -48,7 +48,7 @@ class UserResult extends Component {
                         visibility = "Public";
                     }
 
-                    let gameCount = res.data.game_count;
+                    let gameCount = data.user.game_count;
                     if (!gameCount) {
                         gameCount = "Not Available";
                     }
