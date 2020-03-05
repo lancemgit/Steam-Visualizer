@@ -13,7 +13,7 @@ const UserRecentGames = (props) => {
                         </CardTitle>
                     </Col>
                     {props.games.map(game => {
-                        if (game.appid !== "invalid appid") {
+                        if (game.appid !== "Invalid AppID") {
                             return (
 
                                 <Col md="4" sm="12" key={game.appid}>
