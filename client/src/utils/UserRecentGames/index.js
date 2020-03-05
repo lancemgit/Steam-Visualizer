@@ -18,7 +18,7 @@ const UserRecentGames = (props) => {
 
                                 <Col md="4" sm="12" key={game.appid}>
                                     <Link to={{
-                                        pathname: '/game',
+                                        pathname: '/game/' + String(game.appid),
                                         state: String(game.appid)
                                     }}>
                                         <img className="customImg" src={game.header_image} alt="Recent Game Img" width="100%"></img>

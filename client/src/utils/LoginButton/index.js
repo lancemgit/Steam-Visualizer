@@ -83,7 +83,7 @@ class LoginButton extends Component {
                                     </DropdownToggle>
 
                                     <DropdownMenu className="customDropdown" right>
-                                        <a href={this.state.url}>
+                                        <a href={this.state.url} target="_blank">
                                             <DropdownItem>
                                                 Steam Page
                                             </DropdownItem>

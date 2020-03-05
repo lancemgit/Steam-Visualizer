@@ -6,7 +6,7 @@ import {
 
 function HomeFAQ() {
     return (
-        <Col md="9" sm="12">
+        <Col md="8" sm="12">
             <Card className="customCard">
                 <CardBody>
                     <CardTitle className="text-center">

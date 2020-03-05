@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 import { PieChart, Pie, Sector, ResponsiveContainer } from 'recharts';
 
-const data = [
-    { name: 'No Time', value: 400 },
-    { name: 'Sub One Hr', value: 300 },
-    { name: 'Above One Hr', value: 300 }
-];
-
 const renderActiveShape = (props) => {
     const RADIAN = Math.PI / 180;
     const {
@@ -53,7 +47,6 @@ const renderActiveShape = (props) => {
         </g>
     );
 };
-
 
 class GameListPieChart extends Component {
 

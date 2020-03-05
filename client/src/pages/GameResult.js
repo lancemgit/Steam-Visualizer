@@ -50,6 +50,12 @@ class GameResult extends Component {
         });
     }
 
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.location.pathname !== this.props.location.pathname) {
+            window.location.reload();
+        }
+    };
+
     componentDidMount() {
         let user = JSON.parse(localStorage.getItem('user'));
         if (this.props.location.state) {
@@ -153,7 +159,7 @@ class GameResult extends Component {
                                             </FormGroup>
                                             <Button className="otherButtonColors customButton justify-content-center"
                                                 onClick={this.handleUserSearch}>
-                                                Search User
+                                                Compare Against User
                                                 </Button>
                                         </Form>
 

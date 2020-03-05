@@ -20,7 +20,7 @@ class ViewsTable extends Component {
 
     render() {
         return (
-            <Col md="3" sm="12">
+            <Col md="4" sm="12">
                 <Card className="customCard">
                     <CardBody>
                         <CardTitle className="text-center">
@@ -39,7 +39,7 @@ class ViewsTable extends Component {
                                             <tr>
                                                 <td>
                                                     <Link to={{
-                                                        pathname: '/user',
+                                                        pathname: '/user/' + user.steamid,
                                                         state: user.steamid
                                                     }}>
                                                         {user.personaname}

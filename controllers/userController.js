@@ -40,6 +40,7 @@ module.exports = {
                     + process.env.STEAM_KEY + "&steamid=" + id + "&count=" + 3);
                 const ownedGames = await axios.get("https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key="
                     + process.env.STEAM_KEY + "&steamid=" + id);
+                const gameList = await this.getAmountPlayed(id);
 
                 // Setting necessary fields to information
                 newUser.steamid = player.steamid;
@@ -49,6 +50,9 @@ module.exports = {
                 newUser.personaname = player.personaname;
                 newUser.steam_level = steamLvl.data.response.player_level;
                 newUser.game_count = ownedGames.data.response.game_count;
+                newUser.no_time = gameList.noTime;
+                newUser.one_hour = gameList.oneHour;
+                newUser.above_one = gameList.aboveOneHour;
 
                 if (recentGames.data.response.games) {
                     newUser.games = recentGames.data.response.games;

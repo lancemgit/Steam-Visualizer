@@ -24,6 +24,13 @@ class UserResult extends Component {
         aboveOneHour: null
     }
 
+    componentWillReceiveProps = (nextProps) => {
+        if (nextProps.location.pathname !== this.props.location.pathname) {
+            window.location.reload();
+        }
+    };
+
+
     componentDidMount() {
         if (this.props.location.state) {
             axios.get("/api/user/?id=" + this.props.location.state.trim()).then((res) => {
@@ -54,12 +61,13 @@ class UserResult extends Component {
                         friend_count: data.user.friend_count,
                         views: data.user.views,
                         game_info: data.gameInfo,
-                        noTime: data.gameList.noTime,
-                        oneHour: data.gameList.oneHour,
-                        aboveOneHour: data.gameList.aboveOneHour
+                        noTime: data.user.no_time,
+                        oneHour: data.user.one_hour,
+                        aboveOneHour: data.user.above_one
                     });
                 };
             }).catch((err) => {
+                console.log(err);
                 this.setState({ status: 1 });
             });
         } else {

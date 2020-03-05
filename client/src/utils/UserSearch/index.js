@@ -39,15 +39,16 @@ class GameSearch extends Component {
                             value={this.state.userSearch} />
                     </FormGroup>
 
-                    <Link to={{
-                        pathname: '/user',
-                        state: this.state.userSearch
-                    }}><Button className="otherButtonColors customButton">
+                    <Link
+                        to={{
+                            pathname: '/user/' + this.state.userSearch,
+                            state: this.state.userSearch
+                        }}><Button className="otherButtonColors customButton">
                             User Search
                     </Button>
                     </Link>
                 </Form>
-            </Col>
+            </Col >
         );
     }
 }

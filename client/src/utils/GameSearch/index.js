@@ -31,10 +31,11 @@ class GameSearch extends Component {
                             onChange={this.handleInputChange}
                             value={this.state.search} />
                     </FormGroup>
-                    <Link to={{
-                        pathname: '/game',
-                        state: this.state.gameSearch
-                    }}><Button className="otherButtonColors customButton buttonSpacer">
+                    <Link
+                        to={{
+                            pathname: '/game/' + this.state.gameSearch,
+                            state: this.state.gameSearch
+                        }}><Button className="otherButtonColors customButton buttonSpacer">
                             Game Search
                     </Button>
                     </Link>

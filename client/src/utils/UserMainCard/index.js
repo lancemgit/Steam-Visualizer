@@ -24,9 +24,9 @@ function UserMainCard(props) {
                         </a>
                         <br></br>
                         <CardText>
-                            <div>Profile Visibility - {props.communityVisibility}</div>
-                            <div>Amount of Games Owned - {props.gameCount}</div>
-                            <div>Amount of Friends on Friends List - {props.friendCount}</div>
+                            <h5>Profile Visibility - {props.communityVisibility}</h5>
+                            <h5>Amount of Games Owned - {props.gameCount}</h5>
+                            <h5>Amount of Friends on Friends List - {props.friendCount}</h5>
                         </CardText>
                     </Col>
                 </Row>

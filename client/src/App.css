@@ -122,3 +122,29 @@ body {
 .navbar-toggler {
     border: 0 !important;
 }
+
+.container {
+    min-height: 90vh !important;
+}
+
+a:link {
+    color: #66c0f4;
+}
+
+/* visited link */
+
+a:visited {
+    color: #66c0f4;
+}
+
+/* mouse over link */
+
+a:hover {
+    color: #66c0f4;
+}
+
+/* selected link */
+
+a:active {
+    color: #66c0f4;
+}

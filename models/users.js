@@ -15,8 +15,13 @@ const userSchema = new Schema({
     }],
     game_count: String,
     friend_count: String,
+    no_time: Number,
+    one_hour: Number,
+    above_one: Number,
     views: Number, // The amount of times the profile has been looked up
     last_updated: { type: Date, default: Date.now } //Only update once a day unless force refreshed
+
+
 });
 
 const Users = mongoose.model("Users", userSchema);
