@@ -43,15 +43,23 @@ function UserMainCard(props) {
 
                     <Col md="6" sm="12">
                         <h5 className="underlinedFont text-center">Playtime</h5>
-                        <GameListPieChart
-                            NoTime={props.NoTime}
-                            SubOne={props.SubOne}
-                            AboveOne={props.AboveOne} />
+                        {props.AboveOne === 0 && props.NoTime === 0 && props.SubOne === 0 ?
+                            (<h5 className="text-center">
+                                Game Data Not Available
+                        </h5>)
+                            :
+                            (
+                                <GameListPieChart
+                                    NoTime={props.NoTime}
+                                    SubOne={props.SubOne}
+                                    AboveOne={props.AboveOne} />
+                            )}
+
                     </Col>
 
                     <Col md="6" sm="12">
                         <h5 className="statsSection underlinedFont text-center">Game Count</h5>
-                        {props.gameCount !== "Not Available" ?
+                        {props.gameCount !== "Not Available" && props.gameCount ?
                             (<div className="text-center">
                                 <h5 className="percentColor">
                                     {((Number(props.gameCount) / 51.256) * 100).toFixed(2)}%

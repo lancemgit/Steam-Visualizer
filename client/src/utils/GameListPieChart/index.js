@@ -62,6 +62,7 @@ class GameListPieChart extends Component {
 
     render() {
         return (
+
             <ResponsiveContainer className="chartMargin" width="100%" height={250}>
                 <PieChart>
                     <Pie

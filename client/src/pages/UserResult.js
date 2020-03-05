@@ -38,6 +38,7 @@ class UserResult extends Component {
                 if (data.user.status === "Invalid SteamID") {
                     this.setState({ status: 1 });
                 } else {
+
                     let visibility = res.data.communityvisibilitystate
                     if (visibility === 3) {
                         visibility = "Public";
@@ -45,6 +46,11 @@ class UserResult extends Component {
                         visibility = "Friends-Only";
                     } else {
                         visibility = "Public";
+                    }
+
+                    let gameCount = res.data.game_count;
+                    if (!gameCount) {
+                        gameCount = "Not Available";
                     }
 
                     this.setState({
@@ -57,7 +63,7 @@ class UserResult extends Component {
                         communityvisibilitystate: visibility,
                         personaname: data.user.personaname,
                         games: data.user.games,
-                        game_count: data.user.game_count,
+                        game_count: gameCount,
                         friend_count: data.user.friend_count,
                         views: data.user.views,
                         game_info: data.gameInfo,
