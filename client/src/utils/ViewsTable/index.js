@@ -55,7 +55,7 @@ class ViewsTable extends Component {
                                 </table>
                             </div>
                         )
-                            : (<div>Waiting</div>)}
+                            : (<div></div>)}
                     </CardBody>
                 </Card>
             </Col>

@@ -106,9 +106,7 @@ module.exports = {
                 + "&steamid=" + id).then(function (res) {
                     const gameList = res.data.response.games;
                     // Looping through the objects of objects and checking if the given gameid is given
-                    console.log(gameList);
                     for (game in gameList) {
-                        console.log(game);
                         if (gameList[game].appid === Number(gameid)) {
                             return resolve({ user_playtime_forever: gameList[game].playtime_forever });
                         }
@@ -142,8 +140,8 @@ module.exports = {
                             data.aboveOneHour++
                         }
                     }
-                    return resolve(data);
 
+                    return resolve(data);
 
                 }).catch(function (err) {
                     // If any error occurs from the api call then the steamID is bad

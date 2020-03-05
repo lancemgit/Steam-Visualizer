@@ -4,6 +4,7 @@ import GameMainCard from '../utils/GameMainCard';
 import { Row, Col, Button, Form, FormGroup, Label, Input } from "reactstrap"
 import BarTimeChart from '../utils/BarTimeChart';
 import ComparisonTimeChart from '../utils/ComparisonTimeChart';
+import FailedSearch from '../utils/FailedSearch';
 
 class GameResult extends Component {
 
@@ -101,7 +102,7 @@ class GameResult extends Component {
         return (
             <div>
                 {this.state.status === 2 ?
-                    (<div>Waiting</div>)
+                    (<div></div>)
                     :
                     (<div>
                         {this.state.status === 3 ? (
@@ -187,7 +188,7 @@ class GameResult extends Component {
                         )
                             :
                             (
-                                <div>Bad Search</div>
+                                <FailedSearch />
                             )}
                     </div>)}
             </div>

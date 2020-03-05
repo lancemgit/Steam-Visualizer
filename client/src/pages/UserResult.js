@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import UserMainCard from '../utils/UserMainCard';
 import UserRecentGames from '../utils/UserRecentGames';
+import FailedSearch from '../utils/FailedSearch';
 import axios from 'axios';
 
 class UserResult extends Component {
@@ -71,7 +72,7 @@ class UserResult extends Component {
         return (
             <div>
                 {this.state.status === 2 ?
-                    (<div>Waiting</div>)
+                    (<div></div>)
                     :
                     (<div>
                         {this.state.status === 3 ? (
@@ -97,7 +98,7 @@ class UserResult extends Component {
                         )
                             :
                             (
-                                <div>Bad Search</div>
+                                <FailedSearch />
                             )}
                     </div>)}
             </div>
