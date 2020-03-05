@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import GameMainCard from '../utils/GameMainCard';
-import GameReviewChart from '../utils/GameReviewChart';
 import { Row, Col, Button, Form, FormGroup, Label, Input } from "reactstrap"
 import BarTimeChart from '../utils/BarTimeChart';
 import ComparisonTimeChart from '../utils/ComparisonTimeChart';
@@ -30,7 +29,7 @@ class GameResult extends Component {
         user_search: "",
         user_time: null,
         user_fail: true,
-
+        ccu_avg: null
     }
 
     handleInputChange = event => {
@@ -43,7 +42,7 @@ class GameResult extends Component {
     handleUserSearch = () => {
         console.log(this.state.user_search.trim());
         axios.get("/api/user/getgame/?id=" + this.state.user_search.trim() + "&gameid=" + this.state.appid).then((res) => {
-
+            console.log(res);
             if (res.data.status) {
                 this.setState({ user_fail: true });
             } else {
@@ -53,12 +52,23 @@ class GameResult extends Component {
     }
 
     componentDidMount() {
+        let user = JSON.parse(localStorage.getItem('user'));
+
         if (this.props.location.state) {
             axios.put("/api/game", { appids: [this.props.location.state.trim()] }).then((res) => {
                 const game = res.data[0];
                 if (res.data.status || res.data[0].appid === "Invalid AppID") {
                     this.setState({ status: 1 });
                 } else {
+                    if (user) {
+                        user = user.id;
+                    } else {
+                        user = "";
+                    }
+
+                    let ownerSplit = game.owners.split(' ');
+                    let ccuAvg = ((Number(ownerSplit[0].replace(/,/g, '')) + Number(ownerSplit[ownerSplit.length - 1].replace(/,/g, ''))) / 2);
+
                     this.setState({
                         status: 3,
                         appid: game.appid,
@@ -78,12 +88,13 @@ class GameResult extends Component {
                         median_2weeks: game.median_2weeks,
                         ccu: game.ccu,
                         genre: game.genre,
+                        user_search: user,
+                        ccu_avg: ccuAvg
                     });
                 }
             }).catch((err) => {
-                console.log(err);
                 this.setState({ status: 1 });
-            });;
+            });
         } else {
             this.setState({ status: 1 });
         }
@@ -107,8 +118,6 @@ class GameResult extends Component {
                                     releaseDate={this.state.release_date}
                                     developer={this.state.developer}
                                     publisher={this.state.publisher}
-                                    positive={this.state.positive}
-                                    negatvie={this.state.negative}
                                     owners={this.state.owners}
                                     averageForever={this.state.average_forever}
                                     average2Weeks={this.state.average_2weeks}
@@ -117,23 +126,26 @@ class GameResult extends Component {
                                     ccu={this.state.ccu}
                                     genre={this.state.genre}
                                     steamLink={"steam://run/" + this.state.appid}
-                                />
-
-                                <GameReviewChart
                                     positive={Number(this.state.positive)}
                                     negative={Number(this.state.negative)}
+                                    ccuAvg={this.state.ccu_avg}
                                 />
+
                                 <br></br>
                                 <br></br>
                                 <br></br>
 
                                 <Row>
-                                    <Col md="6" sm="12">personalized
+                                    <Col md="6" sm="12">
+                                        <h4 className="text-center underlinedFont">
+                                            User Time Stats
+                                        </h4>
 
-                                    <Form onSubmit={e => { e.preventDefault(); }} className="text-center">
+                                        <Form onSubmit={e => { e.preventDefault(); }} className="text-center">
                                             <FormGroup>
                                                 <Label for="user_search"></Label>
                                                 <Input
+                                                    className="customForm"
                                                     type="text"
                                                     name="user_search"
                                                     id="user_search"
@@ -141,7 +153,10 @@ class GameResult extends Component {
                                                     onChange={this.handleInputChange}
                                                     value={this.state.user_search} />
                                             </FormGroup>
-                                            <Button className="justify-content-center" onClick={this.handleUserSearch}>Search id</Button>
+                                            <Button className="otherButtonColors customButton justify-content-center"
+                                                onClick={this.handleUserSearch}>
+                                                Search User
+                                                </Button>
                                         </Form>
 
                                         {!this.state.user_fail ?
@@ -150,13 +165,17 @@ class GameResult extends Component {
                                                 GlobalTime={this.state.average_forever}
                                                 chartName="Average Time (User VS. Global) (Min)" />)
                                             :
-                                            (<div>Please Search for a Valid Steam64ID.</div>)}
-
+                                            (<div className="text-center">
+                                                <br></br>
+                                                Please Search for a Valid Steam64ID.
+                                                </div>)}
                                     </Col>
 
-
-                                    <Col md="6" sm="12">global
-                                         <BarTimeChart
+                                    <Col md="6" sm="12">
+                                        <h4 className="text-center underlinedFont">
+                                            Global Time Stats
+                                        </h4>
+                                        <BarTimeChart
                                             Weeks2={this.state.median_2weeks}
                                             AllTime={this.state.median_forever}
                                             chartName="Median Playtime (Min)" />

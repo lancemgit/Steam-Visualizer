@@ -6,6 +6,7 @@ import {
     NavbarToggler,
     NavbarBrand,
 } from 'reactstrap';
+import { Link } from "react-router-dom"
 import logo from "../../assets/logo.svg";
 
 const HeaderBar = (props) => {
@@ -14,10 +15,12 @@ const HeaderBar = (props) => {
 
     return (
         <div>
-            <Navbar className="customHeader" light expand="md">
-                <NavbarBrand href="/" className="customHeaderColor boldFont">
-                    <img src={logo} alt="Steam Visualizer Logo" height="15" width="25" />  Steam Visualizer
+            <Navbar className="customHeader" dark expand="md">
+                <Link to={{ pathname: '/' }}>
+                    <NavbarBrand className="customHeaderColor boldFont">
+                        <img className="customLogo" src={logo} alt="Steam Visualizer Logo" height="15" width="25" />  Steam Visualizer
                       </NavbarBrand>
+                </Link>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     {/* This is the smart component that handles displaying the user if they are logged in */}

@@ -8,6 +8,7 @@ import {
     Button
 } from 'reactstrap';
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 class LoginButton extends Component {
 
@@ -32,10 +33,21 @@ class LoginButton extends Component {
 
     componentDidMount = () => {
         // Checking to see if the user is still logged in from the previous session
-        let user = localStorage.getItem("user");
-        if (user) {
-            user = JSON.parse(user);
-            this.setState({ name: user.name, avatar: user.avatar, id: user.id, url: "https://steamcommunity.com/profiles/" + user.id });
+
+
+        let token = localStorage.getItem("authToken");
+        if (token) {
+            axios.get("/auth/verify/?token=" + token).then((res) => {
+                if (res.data.verified) {
+                    let user = localStorage.getItem("user");
+                    if (user) {
+                        user = JSON.parse(user);
+                        this.setState({ name: user.name, avatar: user.avatar, id: user.id, url: "https://steamcommunity.com/profiles/" + user.id });
+                    }
+                } else {
+                    this.handleLogout();
+                }
+            })
         }
 
         window.addEventListener('message', event => {
@@ -96,8 +108,8 @@ class LoginButton extends Component {
                         )
                         :
                         (
-                            <Button>
-                                <div className="boldFont customButton" onClick={this.handleLogin}>Sign In</div>
+                            <Button className="boldFont customButton" onClick={this.handleLogin}>
+                                Sign In
                             </Button>
 
                         )

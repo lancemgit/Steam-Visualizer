@@ -17,16 +17,29 @@ class UserResult extends Component {
         game_count: null,
         friend_count: null,
         views: null,
-        game_info: null
+        game_info: null,
+        noTime: null,
+        oneHour: null,
+        aboveOneHour: null
     }
 
     componentDidMount() {
         if (this.props.location.state) {
             axios.get("/api/user/?id=" + this.props.location.state.trim()).then((res) => {
                 let data = res.data;
+                console.log(data);
                 if (data.user.status === "Invalid SteamID") {
                     this.setState({ status: 1 });
                 } else {
+                    let visibility = res.data.communityvisibilitystate
+                    if (visibility === 3) {
+                        visibility = "Public";
+                    } else if (visibility === 2) {
+                        visibility = "Friends-Only";
+                    } else {
+                        visibility = "Public";
+                    }
+
                     this.setState({
                         // Good status
                         status: 3,
@@ -34,13 +47,16 @@ class UserResult extends Component {
                         profileurl: data.user.profileurl,
                         steam_level: data.user.steam_level,
                         avatar: data.user.avatar,
-                        communityvisibilitystate: data.user.communityvisibilitystate,
+                        communityvisibilitystate: visibility,
                         personaname: data.user.personaname,
                         games: data.user.games,
                         game_count: data.user.game_count,
                         friend_count: data.user.friend_count,
                         views: data.user.views,
-                        game_info: data.gameInfo
+                        game_info: data.gameInfo,
+                        noTime: data.gameList.noTime,
+                        oneHour: data.gameList.oneHour,
+                        aboveOneHour: data.gameList.aboveOneHour
                     });
                 };
             }).catch((err) => {
@@ -71,6 +87,9 @@ class UserResult extends Component {
                                     gameCount={this.state.game_count}
                                     friendCount={this.state.friend_count}
                                     views={this.state.views}
+                                    NoTime={this.state.noTime}
+                                    SubOne={this.state.oneHour}
+                                    AboveOne={this.state.aboveOneHour}
                                 />
                                 <UserRecentGames
                                     games={this.state.game_info}

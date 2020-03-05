@@ -48,13 +48,12 @@ module.exports = {
                 newUser.communityvisibilitystate = player.communityvisibilitystate;
                 newUser.personaname = player.personaname;
                 newUser.steam_level = steamLvl.data.response.player_level;
+                newUser.game_count = ownedGames.data.response.game_count;
 
                 if (recentGames.data.response.games) {
                     newUser.games = recentGames.data.response.games;
-                    newUser.game_count = ownedGames.data.response.game_count;
                 } else {
                     newUser.games = null;
-                    newUser.game_count = "Not Available";
                 }
 
                 // Checking to see if the friends list will be visible in the api
@@ -105,18 +104,44 @@ module.exports = {
         return new Promise(async (resolve) => {
             await axios.get("https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=" + process.env.STEAM_KEY
                 + "&steamid=" + id).then(function (res) {
-                    console.log("somethign");
                     const gameList = res.data.response.games;
                     // Looping through the objects of objects and checking if the given gameid is given
                     for (game in gameList) {
-                        console.log("anything");
                         if (gameList[game].appid === Number(gameid)) {
-                            console.log("nothing");
                             return resolve({ user_playtime_forever: gameList[game].playtime_forever });
                         }
                     }
                     // If it is not owned then the a status saying that is given
                     return resolve({ status: "Not Owned" })
+
+                }).catch(function (err) {
+                    // If any error occurs from the api call then the steamID is bad
+                    return resolve({ status: "Invalid SteamID" });
+                });
+        });
+    },
+    getAmountPlayed: function (id) {
+        return new Promise(async (resolve) => {
+            await axios.get("https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/?key=" + process.env.STEAM_KEY
+                + "&steamid=" + id).then(function (res) {
+                    const gameList = res.data.response.games;
+                    let data = {
+                        noTime: 0,
+                        oneHour: 0,
+                        aboveOneHour: 0
+                    }
+                    // Looping through the objects of objects and checking if the given gameid is given
+                    for (game in gameList) {
+                        if (gameList[game].playtime_forever === 0) {
+                            data.noTime++
+                        } else if (gameList[game].playtime_forever > 0 && gameList[game].playtime_forever <= 60) {
+                            data.oneHour++
+                        } else {
+                            data.aboveOneHour++
+                        }
+                    }
+                    return resolve(data);
+
 
                 }).catch(function (err) {
                     // If any error occurs from the api call then the steamID is bad

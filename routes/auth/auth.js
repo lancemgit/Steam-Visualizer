@@ -20,4 +20,13 @@ router.get("/steam/return",
             res.render("authenticated", { jwtToken: JSON.stringify(token), realm: JSON.stringify(process.env.REACT_APP_REALM) });
         });
 
+
+router.get("/verify", function (req, res) {
+    try {
+        jwt.verify(req.query.token, process.env.SECRET_KEY)
+        res.json({ verified: true });
+    } catch (error) {
+        res.json({ verified: false });
+    }
+});
 module.exports = router;

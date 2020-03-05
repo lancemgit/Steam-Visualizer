@@ -16,8 +16,13 @@ router.get("/", async function (req, res) {
   }
 
   let userData = await userController.getUserData(req.query.id, req.query.force);
+  let gameList = await userController.getAmountPlayed(req.query.id);
+
   if (userData.status === "Invalid SteamID" || !userData.games) {
-    return res.json({ user: userData });
+    return res.json({
+      user: userData,
+      gameList: gameList
+    });
   }
 
   // Adding all the games from the users data into an array to get the information about the game later
@@ -30,7 +35,8 @@ router.get("/", async function (req, res) {
 
   const result = {
     user: userData,
-    gameInfo: namePics
+    gameInfo: namePics,
+    gameList: gameList
   };
 
   return res.json(result);
@@ -50,6 +56,14 @@ router.get("/getgame", async function (req, res) {
   }
 
   return res.json(await userController.getUserGame(req.query.id, req.query.gameid));
+});
+
+router.get("/getgamelist", async function (req, res) {
+  if (!req.query.id) {
+    return res.json({ status: "Invalid SteamID" });
+  }
+
+  return res.json(await userController.getAmountPlayed(req.query.id));
 });
 
 module.exports = router;

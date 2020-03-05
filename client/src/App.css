@@ -4,7 +4,7 @@ body {
     font-family: 'Muli', sans-serif !important;
 }
 
-hr {
+.customHr {
     background-color: white !important;
 }
 
@@ -13,6 +13,14 @@ hr {
     border-radius: 20px !important;
     background-color: #171a21 !important;
     margin-top: 1rem !important;
+    /* box-shadow: 0 6px 30px 0 rgba(27, 40, 56, 1), 0 6px 30px 0 rgba(27, 40, 56, 1) !important; */
+}
+
+.customFooter {
+    border: 0 !important;
+    background-color: #171a21 !important;
+    margin-top: 3rem !important;
+    z-index: 10 !important;
 }
 
 .customForm {
@@ -20,6 +28,7 @@ hr {
     color: #556772 !important;
     border-radius: 20px !important;
     border: 0 !important;
+    margin-top: 1rem !important;
 }
 
 .customHeader {
@@ -39,10 +48,77 @@ hr {
     border-radius: 20px !important;
 }
 
+.customLogo {
+    vertical-align: initial !important;
+}
+
+.customTable {
+    margin-bottom: 1rem !important;
+    width: 100% !important;
+}
+
+.otherButtonColors {
+    background: #39820c !important;
+    box-shadow: 0 0 0 .2rem rgba(39, 95, 17, 0) !important;
+    border-color: #275f11 !important;
+}
+
+.customImg {
+    border-radius: 20px !important;
+    margin: auto !important;
+}
+
 .blackText {
     color: black !important;
 }
 
 .boldFont {
     font-weight: bolder !important;
+}
+
+.underlinedFont {
+    text-decoration: underline !important;
+}
+
+.buttonSpacer {
+    margin-right: 10px !important;
+    margin-left: 10px !important;
+}
+
+.buttonSpacer2 {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.fullWidthForm {
+    width: 100% !important;
+}
+
+.userImg {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+}
+
+.recharts-surface {
+    overflow: visible;
+}
+
+.statsSection {
+    margin-top: 1.5rem !important;
+}
+
+.percentColor {
+    color: #72b9db !important;
+}
+
+.sectionSpacer {
+    margin-bottom: 1rem !important;
+}
+
+.gameImg {
+    max-width: 100% !important;
+}
+
+.navbar-toggler {
+    border: 0 !important;
 }
